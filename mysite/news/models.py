@@ -13,6 +13,7 @@ class News(models.Model):  # создание полей в БД
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория')
 
+
     def __str__(self):  # Возвращает строковое представление объекта
         return self.title
 

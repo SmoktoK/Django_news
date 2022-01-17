@@ -21,12 +21,14 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Главная</a></li>
         <li class="nav-item"><a class="nav-link" href="/">Добавить новость</a></li>
+      </ul>
     </div>
   </div>
 </nav>
 
    <div class="container mt-3">
        <h1>{{ title }}</h1>
+   {% now  'Y-m-d H:m:s'%}
        <div class="row">
            <div class="col-md-12">
                {% for item in news %}
@@ -35,7 +37,7 @@
                     Категория: {{ item.category }}
                   </div>
                   <div class="card-body">
-                    <h5 class="card-title">{{ item.title}}</h5>
+                    <h5 class="card-title {% cycle 'text-danger' 'text-success' %}">{{ item.title}}</h5>
                     <p class="card-text">{{ item.content}}</p>
                     <a href="#" class="btn btn-primary">Read more...</a>
                   </div>
@@ -43,6 +45,8 @@
                       {{ item.created_at|date:'Y-m-d H:m:s'}}
                   </div>
                 </div>
+                   {% empty %} <!-- вывод сообщения, если цикл не реализовать-->
+                   Opsss....
                {% endfor %}
            </div>
        </div>
