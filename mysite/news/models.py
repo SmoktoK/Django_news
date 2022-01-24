@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class News(models.Model):  # создание полей в БД
@@ -13,6 +14,8 @@ class News(models.Model):  # создание полей в БД
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория')
 
+    def get_absolute_url(self):  # формирование ссылок
+       return reverse('view_news', kwargs={'news_id': self.pk})
 
     def __str__(self):  # Возвращает строковое представление объекта
         return self.title
@@ -25,6 +28,9 @@ class News(models.Model):  # создание полей в БД
 
 class Category(models.Model):  # Добавление категорий для статей
     title = models.CharField(max_length=150, db_index=True, verbose_name='Наименование категории')
+
+    def get_absolute_url(self):  # формирование ссылок
+       return reverse('category', kwargs={'category_id': self.pk})
 
     def __str__(self):  # Возвращает строковое представление объекта
         return self.title
