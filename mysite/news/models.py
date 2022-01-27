@@ -12,10 +12,10 @@ class News(models.Model):  # создание полей в БД
     # upload_to='photos/%Y/%m/%d/ - разделение фото по дате,
     # blank дает возможность делать поле не обязательным для заполнения
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
-    category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
 
     def get_absolute_url(self):  # формирование ссылок
-       return reverse('view_news', kwargs={'news_id': self.pk})
+        return reverse('view_news', kwargs={'pk': self.pk})
 
     def __str__(self):  # Возвращает строковое представление объекта
         return self.title
@@ -30,7 +30,7 @@ class Category(models.Model):  # Добавление категорий для 
     title = models.CharField(max_length=150, db_index=True, verbose_name='Наименование категории')
 
     def get_absolute_url(self):  # формирование ссылок
-       return reverse('category', kwargs={'category_id': self.pk})
+        return reverse('category', kwargs={'category_id': self.pk})
 
     def __str__(self):  # Возвращает строковое представление объекта
         return self.title
